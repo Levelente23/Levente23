@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szakmai Portfólió</title>
+    <style>
+        /* MODERNEBB BETŰTÍPUS ÉS ALAPOK */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Sötétkék Tech Háttér */
+            background: radial-gradient(circle at top right, #001f3f, #00050a);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* HÁTTÉR HOMÁLYOSÍTÁSA MODALNÁL */
+        .blur-background {
+            filter: blur(12px) brightness(0.5);
+            pointer-events: none;
+        }
+
+        /* ÜVEGHATÁSÚ FEJLÉC */
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container img {
+            height: 50px;
+            filter: drop-shadow(0 0 8px rgba(0, 123, 255, 0.5));
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover { color: #00dfd8; }
+
+        .cv-link {
+            background: linear-gradient(45deg, #007cf0, #00dfd8);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 124, 240, 0.3);
+        }
+
+        .cv-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 223, 216, 0.5);
+        }
+
+        /* TARTALOM */
+        main {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+        }
+
+        /* ÜVEGHATÁSÚ RÓLAM SZEKCIÓ */
+        .about-section {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .profile-pic-container {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+			object-position: center 15%;
+            border: 3px solid #00dfd8;
+            box-shadow: 0 0 25px rgba(0, 223, 216, 0.3);
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h2 {
+            margin-top: 0;
+            color: #00dfd8;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .about-text p {
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .contact-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .contact-list li {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .contact-list strong {
+            color: #007cf0;
+            display: inline-block;
+            width: 110px;
+        }
+
+        .contact-list a {
+            color: #00dfd8;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .contact-list a:hover { text-shadow: 0 0 8px rgba(0, 223, 216, 0.5); }
+
+        .skills-container { margin-top: 25px; }
+
+        .skill-tag {
+            display: inline-block;
+            background: rgba(0, 124, 240, 0.15);
+            color: #00dfd8;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px 5px 5px 0;
+            border: 1px solid rgba(0, 223, 216, 0.3);
+            font-weight: 600;
+        }
+
+        /* TANTÁRGY RÁCS ÉS ÜVEG KÁRTYÁK */
+        .grades-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 300px;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: #007cf0;
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #00dfd8;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* TECH GOMBOK */
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ccc;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .btn:hover {
+            background: rgba(0, 124, 240, 0.1);
+            color: white;
+            border-color: #007cf0;
+            padding-left: 20px;
+        }
+
+        /* MODAL */
+        #pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: #111;
+            width: 95%;
+            max-width: 1100px;
+            height: 90vh;
+            border-radius: 20px;
+            border: 1px solid #333;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            font-size: 35px;
+            cursor: pointer;
+            color: #ff4d4d;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover { transform: rotate(90deg); }
+
+        #pdf-iframe { width: 100%; height: 100%; border: none; }
+
+        /* ÖNÉLETRAJZ SZEKCIÓ */
+        .resume-section {
+            margin-top: 80px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .resume-section h2 { color: #00dfd8; font-size: 2rem; margin-top: 0; }
+
+        .cv-container {
+            margin-top: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 223, 216, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+    <header>
+        <div class="logo-container">
+            <img src="images.jfif" alt="Bank Logo" onerror="this.src='https://via.placeholder.com/150x50/FFFFFF/007cf0?text=BANK+LOGO'">
+        </div>
+        <div class="nav-links">
+            <a href="#rolam" class="nav-link">Rólam</a>
+            <a href="#oneletrajz" class="nav-link cv-link">Önéletrajz Megnyitása</a>
+        </div>
+    </header>
+
+    <main>
+        <h1>Tóth Levente - Szakmai Portfólió</h1>
+
+        <section id="rolam" class="about-section">
+            <div class="profile-pic-container">
+                <img src="tablokep.jfif" alt="Tóth Levente profilképe" class="profile-pic" onerror="this.src='https://via.placeholder.com/180x180/001f3f/00dfd8?text=FOT%C3%93'">
+            </div>
+            
+            <div class="about-text">
+                <h2>Tóth Levente</h2>
+                <p>Elektronika és Elektrotechnika technikus tanuló vagyok. Érdekelnek a modern automatizálási megoldások, a mikrokontrollerek világa. Célom, hogy a tanulmányaim során elsajátított elméleti tudást a gyakorlatban is kamatoztassam.</p>
+                
+                <ul class="contact-list">
+                    <li><strong>E-mail:</strong> <a href="toth.levi0123@gmail.com">toth.levi0123@gmail.com</a></li>
+                    <li><strong>Telefon:</strong> +36 30 016 5953</li>
+                    <li><strong>Város:</strong> Dunaújváros</li>
+                </ul>
+
+                <div class="skills-container">
+                    <span class="skill-tag">C++ / C#</span>
+                    <span class="skill-tag">PLC Programozás</span>
+                    <span class="skill-tag">Mikrovezérlők</span>
+                    <span class="skill-tag">Hálózatépítés</span>
+                    <span class="skill-tag">IoT Rendszerek</span>
+					<span class="skill-tag">Microsoft ismeretek</span>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="grades-grid">
+            <div class="card">
+                <h2>11. Évfolyam</h2>
+                <button class="btn" onclick="openPDF('Mérési jegyzőkönyv - Tóth Levente 2.0.pdf', 'Mérési jegyzőkönyv')"> Mérési jegyzőkönyv</button>
+                <button class="btn" onclick="openPDF('Elektronika Portfólió.pdf', 'Elektronika')"> Elektronika</button>
+                <button class="btn" onclick="openPDF('Hálózat portfólió - Tóth Levente.pdf', 'Hálózat kezelés')"> Hálózat kezelés</button>
+                <button class="btn" onclick="openPDF('Programozás Alapjai Portfólió.pdf', 'Programozás alapjai')"> Programozás alapjai</button>
+            </div>
+
+            <div class="card">
+                <h2>12. Évfolyam</h2>
+                <button class="btn" onclick="openPDF('adatbazis kezelesi portfolio.pdf', 'Adatbázis kezelés')"> Adatbázis kezelés</button>
+                <button class="btn" onclick="openPDF('mikrovezérlő_projekt portfólio 2.pdf', 'Mikrovezérlő programozás')"> Mikrovezérlő programozás</button>
+                <button class="btn" onclick="openPDF('PLC Programozás Portfólió - Tóth Levente.pdf', 'PLC programozás')"> PLC programozás</button>
+                <button class="btn" onclick="openPDF('Számítógépes Szimuláció Portfólió - Tóth Levente 2.pdf', 'Számítógépes szimuláció')"> Számítógépes szimuláció</button>
+            </div>
+
+            <div class="card">
+                <h2>13. Évfolyam</h2>
+                <button class="btn" onclick="openPDF('Digitális áramkörök - Tóth Levente.pdf', 'Digitális áramkörök')"> Digitális áramkörök</button>
+                <button class="btn" onclick="openPDF('IOT Portfólió_Tóth Levente.pdf', 'IoT rendszerek')"> IoT rendszerek</button>
+                <button class="btn" onclick="openPDF('Programfejlesztési Portfólió.pdf', 'Programfejlesztés')"> Programfejlesztés</button>
+                <button class="btn" onclick="openPDF('Robottechnika Tantárgyi Portfólió.pdf', 'Robottechnika')"> Robottechnika</button>
+            </div>
+        </div>
+
+        <section id="oneletrajz" class="resume-section">
+            <h2>Szakmai Önéletrajz</h2>
+            <p style="color: #aaa;"></p>
+            
+            <div class="cv-container">
+                <iframe src="oneletrajz.pdf" style="width: 100%; height: 700px; border: none;"></iframe>
+            </div>
+        </section>
+    </main>
+</div>
+
+<div id="pdf-modal" onclick="closeModalOnOutside(event)">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2 id="modal-title" style="margin:0; color:#00dfd8; font-weight: 400; font-size: 1.2rem;"></h2>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+        </div>
+        <iframe id="pdf-iframe" src=""></iframe>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('pdf-modal');
+    const wrapper = document.getElementById('wrapper');
+    const iframe = document.getElementById('pdf-iframe');
+    const title = document.getElementById('modal-title');
+
+    function openPDF(file, subject) {
+        title.innerText = "> " + subject;
+        iframe.src = file;
+        modal.style.display = 'flex';
+        wrapper.classList.add('blur-background');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+        wrapper.classList.remove('blur-background');
+        document.body.style.overflow = 'auto';
+        iframe.src = "";
+    }
+
+    function closeModalOnOutside(e) {
+        if (e.target === modal) closeModal();
+    }
+</script>
+
+</body>
+</html>
